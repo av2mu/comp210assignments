@@ -11,6 +11,5 @@ public class Main {
       bst = bst.insert(1);
       bst = bst.insert(9);
       bst = bst.insert(4);
-      bst.printBreadthFirstTraversal();
   }
 }
