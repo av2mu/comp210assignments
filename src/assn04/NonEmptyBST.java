@@ -21,19 +21,21 @@ public class NonEmptyBST<T extends Comparable<T>> implements BST<T> {
 	// TODO: insert
 	@Override
 	public BST<T> insert(T element) {
-		if(this._element.compareTo(element) < 0 ) {
-			if(this.getRight().isEmpty()){
-				this._right = new NonEmptyBST<T>(element);
+		if(this._element.compareTo(element) > 0){
+			if (this._left.isEmpty()){
+				this._left = new NonEmptyBST<>(element);
 			}
-			else
-				this._right.insert(element);
-		}
-		else{
-			if(this.getLeft().isEmpty()){
-				this._left = new NonEmptyBST<T>(element);
-			}
-			else
+			else{
 				this._left.insert(element);
+			}
+		}
+		else {
+			if(this._right.isEmpty()){
+				this._right = new NonEmptyBST<>(element);
+			}
+			else{
+				this._right.insert(element);
+			}
 		}
 		return this;
 	}
@@ -41,28 +43,31 @@ public class NonEmptyBST<T extends Comparable<T>> implements BST<T> {
 	// TODO: remove
 	@Override
 	public BST<T> remove(T element) {
-		if (this._element.compareTo(element) == 0){
-			if (this._right.isEmpty()){
-				return this._left;
-			}
-			else if (this._left.isEmpty()){
-				return this._right;
-			}
-			else{
-				BST<T> min = this._right;
-				while (!min.getLeft().isEmpty()){
-					min = min.getLeft();
-				}
-				this._element = min.getElement();
-				this._right = this._right.remove(min.getElement());
-			}
-		}
-		else if (this._element.compareTo(element) < 0){
-			this._right = this._right.remove(element);
-		}
-		else{
+		if(element.compareTo(this._element) < 0){
 			this._left = this._left.remove(element);
 		}
+		else if(element.compareTo(this._element) > 0){
+			this._right = this._right.remove(element);
+		}
+		if (this._element.compareTo(element) == 0){
+				if (this._left.isEmpty() && this._right.isEmpty()){
+					return new EmptyBST<>();
+				}
+				else if (this._left.isEmpty()){
+					return this._right;
+				}
+				else if (this._right.isEmpty()){
+					return this._left;
+				}
+				else{
+					NonEmptyBST<T> next = (NonEmptyBST<T>) this._right;
+					while (!next._left.isEmpty()){
+						next = (NonEmptyBST<T>) next._left;
+					}
+					this._element = next._element;
+					this._right.remove(next._element);
+				}
+			}
 		return this;
 	}
 
@@ -80,22 +85,22 @@ public class NonEmptyBST<T extends Comparable<T>> implements BST<T> {
 		this._left.printPostOrderTraversal();
 		this._right.printPostOrderTraversal();
 		System.out.print(this._element + " ");
+
 	}
 
 	// TODO: printBreadthFirstTraversal
 	@Override
 	public void printBreadthFirstTraversal() {
-		Queue<BST> queue = new LinkedList<>();
+		Queue queue = new LinkedList();
 		queue.add(this);
-
 		while (!queue.isEmpty()){
-			BST<T> current = queue.poll();
-			System.out.print(current.getElement() + " ");
-			if(!current.getLeft().isEmpty()){
-				queue.add(current.getLeft());
+			NonEmptyBST current = (NonEmptyBST) queue.poll();
+			System.out.print( current._element +" ");
+			if (!current._left.isEmpty()){
+				queue.add(current._left);
 			}
-			if (!current.getRight().isEmpty()){
-				queue.add(current.getRight());
+			if (!current._right.isEmpty()){
+				queue.add(current._right);
 			}
 		}
 	}
