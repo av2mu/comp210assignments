@@ -16,16 +16,20 @@ public class Main {
 //        }
 //
 //        System.out.println(avl_bst.height());
-        avl_bst = avl_bst.insert(47);
-        avl_bst = avl_bst.insert(52);
-        avl_bst = avl_bst.insert(60);
+        avl_bst = avl_bst.insert(20);
+        avl_bst = avl_bst.insert(11);
+        avl_bst = avl_bst.insert(50);
+        avl_bst = avl_bst.insert(4);
+        avl_bst = avl_bst.insert(6);
+        avl_bst = avl_bst.insert(15);
         avl_bst = avl_bst.insert(3);
-        avl_bst = avl_bst.insert(7);
-        avl_bst = avl_bst.insert(10);
-        avl_bst = avl_bst.insert(58);
-        avl_bst = avl_bst.remove(7);
+        avl_bst = avl_bst.insert(16);
+        avl_bst = avl_bst.insert(17);
+        avl_bst = avl_bst.insert(2);
+        avl_bst = avl_bst.remove(20);
+        avl_bst = avl_bst.remove(4);
         avl_bst = avl_bst.remove(3);
-        avl_bst = avl_bst.remove(10);
+
         System.out.println(avl_bst.height());
         // Now insert 50 integers in increasing order which would
         // cause a simple BST to become very tall but for our
